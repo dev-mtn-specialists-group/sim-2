@@ -28,10 +28,10 @@ app.use( ( req, res, next ) => createInitialSession( req, res, next ) );
 //     }
 // });
 
-const messagesBaseUrl = "/api/properties";
-app.post( messagesBaseUrl, controller.create );
-app.get( messagesBaseUrl, controller.read );
-app.delete( `${messagesBaseUrl}`, controller.delete );
+const baseUrl = "/api/properties";
+app.post( baseUrl, controller.create );
+app.get( baseUrl, controller.read );
+app.delete( `${baseUrl}`, controller.delete );
 
-const port = process.env.PORT || 3000
+const port = process.env.PORT || 3000;
 app.listen( port, () => { console.log(`Server listening on port ${port}.`); } );

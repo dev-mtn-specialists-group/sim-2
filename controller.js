@@ -27,14 +27,16 @@ module.exports = {
         //user.messages.push({id, text, time});
         id++;
 
-        res.status(200).send(user.properties);
+        //res.status(200).send(user.properties);
+        res.status(200).send(properties);
     },
 
     read: (req, res) => {
         if (!req.query.rent) {
-            res.status(200).send(messages);
+            res.status(200).send(properties);
         }
         else {
+            //res.status(200).send(user.properties.filter(property => property.rent > req.query.rent))
             res.status(200).send(properties.filter(property => property.rent > req.query.rent))
         }
     },
@@ -55,10 +57,10 @@ module.exports = {
     // },
 
     delete: (req, res) => {
-        const deleteID = req.query.id;
-        messageIndex = messages.findIndex(message => message.id == deleteID);
-        messages.splice(messageIndex, 1);
-        res.status(200).send(messages);
+        const deleteID = req.params.id;
+        propertiesIndex = properties.findIndex(property => property.id == deleteID);
+        properties.splice(propertiesIndex, 1);
+        res.status(200).send(properties);
     }
     //
     // history: (req, res) => {
