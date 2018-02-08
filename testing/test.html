@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<button onclick="post()">POST (Create)</button>
+<button onclick="get()">GET (Return All)</button>
+<button onclick="get500()">GET > 500 (Return Rent > 500)</button>
+<button onclick="del()">DELETE 1 (Delete ID 1)</button>
+<div id="results"></div>
+<script>
+    function post() {
+        fetch("/api/properties", {
+            method: 'POST', // or 'PUT'
+            body: JSON.stringify({
+                "description": "My House",
+                "address": "123 Fake Street",
+                "city": "Ogden",
+                "state": "Utah",
+                "zip": "84405",
+                "image": "http://example.com/test",
+                "loanamt": 100000,
+                "monthly": 1000,
+                "rent": 1000
+            }),
+            headers: new Headers({
+                'Content-Type': 'application/json'
+            })
+        }).then(res => res.json())
+            .catch(error => console.error('Error:', error))
+            .then(response => {
+                    console.log('Success:', response);
+                    document.getElementById("results").innerHTML = JSON.stringify(response);
+                }
+            );
+    }
+    function get() {
+        fetch('/api/properties').then(function (response) {
+            var data = response.json();
+            return data
+        }).then(function (data) {
+            console.log(data)
+            document.getElementById("results").innerHTML = JSON.stringify(data);
+        })
+    }
+    function get500() {
+        fetch('/api/properties/?rent=500').then(function (response) {
+            var data = response.json();
+            return data
+        }).then(function (data) {
+            console.log(data)
+            document.getElementById("results").innerHTML = JSON.stringify(data);
+        })
+    }
+    function del() {
+        fetch('/api/properties/?rent=500' + '/' + "1", {
+            method: 'delete'
+        }).then(response => response.json()).then(data => {
+            console.log(data)
+            document.getElementById("results").innerHTML = JSON.stringify(data);
+        })
+    }
+</script>
+
+
+</body>
+</html>

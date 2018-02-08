@@ -13,7 +13,7 @@ app.use( bodyParser.json() );
 app.use( express.static( `${__dirname}../build` ) );
 app.use( session({
     secret: 'keyboard cat',
-    resave: false,
+    resave: true,
     saveUninitialized: true,
     cookie: { secure: true }
 }));
@@ -28,10 +28,17 @@ app.use( ( req, res, next ) => createInitialSession( req, res, next ) );
 //     }
 // });
 
-const messagesBaseUrl = "/api/properties";
-app.post( messagesBaseUrl, controller.create );
-app.get( messagesBaseUrl, controller.read );
-app.delete( `${messagesBaseUrl}`, controller.delete );
 
-const port = process.env.PORT || 3000
+//testing
+app.get("/", function(req, res){
+    res.sendFile('testing/test.html', { root: __dirname });
+})
+
+
+const baseUrl = "/api/properties";
+app.post( baseUrl, controller.create );
+app.get( baseUrl, controller.read );
+app.delete( `${baseUrl}`, controller.delete );
+
+const port = process.env.PORT || 3000;
 app.listen( port, () => { console.log(`Server listening on port ${port}.`); } );
