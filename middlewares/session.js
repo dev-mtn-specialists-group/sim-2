@@ -8,6 +8,6 @@ module.exports = function( req, res, next ) {
             properties:[]
         };
     }
-
+    //console.log(session)
     next();
 }

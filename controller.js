@@ -20,23 +20,26 @@ module.exports = {
         const {name, description, address, city, state, zip, image, loanamt, monthly, rent} = req.body;
         //const { properties, time } = req.body;
         const {user} = req.session;
-
         properties.push({id, name, description, address, city, state, zip, image, loanamt, monthly, rent});
         //messages.push({id, text, time});
         user.properties.push({id, name, description, address, city, state, zip, image, loanamt, monthly, rent});
         //user.messages.push({id, text, time});
         id++;
 
-        //res.status(200).send(user.properties);
+        console.log(req.session);
         res.status(200).send(properties);
+        // res.status(200).send(user.properties.map(property=>property));
     },
 
     read: (req, res) => {
+        const {user} = req.session;
+        //console.log(properties)
         if (!req.query.rent) {
+            // res.status(200).send(user.properties);
             res.status(200).send(properties);
         }
         else {
-            //res.status(200).send(user.properties.filter(property => property.rent > req.query.rent))
+            // res.status(200).send(user.properties.filter(property => property.rent > req.query.rent))
             res.status(200).send(properties.filter(property => property.rent > req.query.rent))
         }
     },
@@ -57,9 +60,13 @@ module.exports = {
     // },
 
     delete: (req, res) => {
+        const {user} = req.session;
         const deleteID = req.params.id;
+        propertiesIndex = user.properties.findIndex(property => property.id == deleteID);
+        user.properties.splice(propertiesIndex, 1);
         propertiesIndex = properties.findIndex(property => property.id == deleteID);
         properties.splice(propertiesIndex, 1);
+        // res.status(200).send(user.properties);
         res.status(200).send(properties);
     }
     //

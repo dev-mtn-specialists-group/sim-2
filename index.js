@@ -13,7 +13,7 @@ app.use( bodyParser.json() );
 app.use( express.static( `${__dirname}../build` ) );
 app.use( session({
     secret: 'keyboard cat',
-    resave: false,
+    resave: true,
     saveUninitialized: true,
     cookie: { secure: true }
 }));
@@ -27,6 +27,13 @@ app.use( ( req, res, next ) => createInitialSession( req, res, next ) );
 //         next();
 //     }
 // });
+
+
+//testing
+app.get("/", function(req, res){
+    res.sendFile('testing/test.html', { root: __dirname });
+})
+
 
 const baseUrl = "/api/properties";
 app.post( baseUrl, controller.create );
