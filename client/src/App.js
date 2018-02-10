@@ -1,14 +1,19 @@
 import React, { Component } from 'react';
 import Routes from './routes';
 import {connect} from 'react-redux';
+import Navbar from './components/Navbar/Navbar'
 import './App.css';
 
 class App extends Component {
   render() {
     return (
-         <div>
+        <div className="container" id='root'>
+          <Navbar />
+          <div>
             {Routes}
-          </div>  
+          </div>
+        </div>
+           
                    
         
     );
