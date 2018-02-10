@@ -14,7 +14,7 @@ const app = express();
 
 app.use(bodyParser.json());
 app.use(cors());
-app.use(express.static(`${__dirname}../build`));
+app.use(express.static(`${__dirname}/client/build`));
 app.use(session({
     secret: 'keyboard cat',
     resave: true,
@@ -36,9 +36,9 @@ massive("postgres://isqfttnejtsndj:1db8c6bb406f9f2ee0c6295db596c722f4229be579740
     .then(dbInstance => app.set('db', dbInstance));
 
 //testing
-app.get("/", function (req, res) {
-    res.sendFile('testing/test.html', {root: __dirname});
-})
+// app.get("/", function (req, res) {
+//     res.sendFile('testing/test.html', {root: __dirname});
+// })
 
 
 const baseUrl = "/api/properties";
