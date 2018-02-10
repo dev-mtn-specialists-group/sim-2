@@ -38,19 +38,19 @@ class Wizard2 extends Component {
 
                     <div className="inputs">
                         <p>Address</p>
-                        <input id="addressInput" type="text" onChange={(e) => updateAddress(e.target.value)}/>
+                        <input id="addressInput" type="text" value={this.props.address} onChange={(e) => updateAddress(e.target.value)}/>
                         <div className="cityState">
                             <div id="city">
                                 <p>City</p>
-                                <input class="cityStateInput" type="text" onChange={(e) => updateCity(e.target.value)}/>
+                                <input class="cityStateInput" type="text" value={this.props.city} onChange={(e) => updateCity(e.target.value)}/>
                             </div>
                             <div id="state"><p>State</p>
-                                <input class="cityStateInput" type="text"
+                                <input class="cityStateInput" value={this.props.ST} type="text"
                                        onChange={(e) => updateState(e.target.value)}/>
                             </div>
                         </div>
                         <p>Zip</p>
-                        <input id="zipInput" type="text" onChange={(e) => updateZip(e.target.value)}/>
+                        <input id="zipInput" type="text" value={this.props.zip} onChange={(e) => updateZip(e.target.value)}/>
                     </div>
 
                     <div className="navigation">

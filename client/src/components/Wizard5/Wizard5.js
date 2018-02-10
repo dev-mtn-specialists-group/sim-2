@@ -60,7 +60,7 @@ class Wizard5 extends Component {
                     <div className="inputs">
                         <p>Recommended Rent ${recRent}</p>
                         <p>Desired Rent</p>
-                        <input type="text" onChange={(e) => updateDesiredRent(e.target.value)}/>
+                        <input type="text" value = {this.props.desiredRent} onChange={(e) => updateDesiredRent(e.target.value)}/>
                     </div>
 
                     <div className="navigation">

@@ -38,9 +38,9 @@ class Wizard4 extends Component {
 
                     <div className="inputs">
                         <p>Loan Amount</p>
-                        <input type="text" onChange={(e) => updateLoanAmount(e.target.value)}/>
+                        <input type="text" value= {this.props.loanAmount} onChange={(e) => updateLoanAmount(e.target.value)}/>
                         <p>Monthly Mortgage</p>
-                        <input type="text" onChange={(e) => updateMonthlyMortgage(e.target.value)}/>
+                        <input type="text" value={this.props.monthlyMortgage} onChange={(e) => updateMonthlyMortgage(e.target.value)}/>
                     </div>
 
                     <div className="navigation">

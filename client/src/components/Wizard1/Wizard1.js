@@ -37,9 +37,9 @@ class Wizard1 extends Component {
 
                     <div className="inputs">
                         <p>Property Name</p>
-                        <input type="text" onChange={(e) => updatePropertyName(e.target.value)}/>
+                        <input type="text" onChange={(e) => updatePropertyName(e.target.value)} value={this.props.propertyName}/>
                         <p>Property Description</p>
-                        <textarea type="text" onChange={(e) => updatePropertyDescription(e.target.value)}/>
+                        <textarea type="text" onChange={(e) => updatePropertyDescription(e.target.value)} value={this.props.propertyDescription}/>
                     </div>
 
                     <Link to="/wizard/2">
