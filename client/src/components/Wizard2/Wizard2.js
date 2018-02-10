@@ -10,6 +10,7 @@ import stepCompleted from '../../assets/step_completed.png'
 class Wizard2 extends Component {
 
   render() {
+    const {updateAddress,updateCity,updateState,updateZip} = this.props;
     return (
       <div className="parent-div">
 
