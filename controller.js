@@ -10,68 +10,56 @@
 //     monthly INTEGER,
 //     rent INTEGER
 
-
-let properties = [];
-let id = 0;
-
-
 module.exports = {
     create: (req, res) => {
-        const {name, description, address, city, state, zip, image, loanamt, monthly, rent} = req.body;
-        //const { properties, time } = req.body;
-        const {user} = req.session;
-        properties.push({id, name, description, address, city, state, zip, image, loanamt, monthly, rent});
-        //messages.push({id, text, time});
-        user.properties.push({id, name, description, address, city, state, zip, image, loanamt, monthly, rent});
-        //user.messages.push({id, text, time});
-        id++;
+        let dbInstance = req.app.get('db');
+        let {name, description, address, city, state, zip, image, loanamt, monthly, rent} = req.body;
+        // catch empty vals
+        name = name || "";
+        description = description || "";
+        address = address || "";
+        city = city || "";
+        state = state || "";
+        zip = zip || "";
+        image = image || "";
+        loanamt = loanamt || 0;
+        monthly = monthly || 0;
+        rent = rent || 0;
 
-        console.log(req.session);
-        res.status(200).send(properties);
-        // res.status(200).send(user.properties.map(property=>property));
+        const {user} = req.session;
+        const userid = req.sessionID;
+        dbInstance.create_property([name, description, address, city, state, zip, image, loanamt, monthly, rent, userid]).then(() => {
+            dbInstance.read_properties([userid]).then(props => {
+                res.status(200).send(props.map(property => property));
+            });
+        }).catch(err => res.status(500).send(err))
     },
-
     read: (req, res) => {
+        let dbInstance = req.app.get('db');
         const {user} = req.session;
-        //console.log(properties)
+        const userid = req.sessionID;
+        const rent = req.query.rent;
         if (!req.query.rent) {
-            // res.status(200).send(user.properties);
-            res.status(200).send(properties);
+            dbInstance.read_properties([userid]).then(props => {
+                res.status(200).send(props.map(property => property));
+            });
         }
         else {
-            // res.status(200).send(user.properties.filter(property => property.rent > req.query.rent))
-            res.status(200).send(properties.filter(property => property.rent > req.query.rent))
+            dbInstance.read_properties([userid, rent]).then(props => {
+                res.status(200).send(props.map(property => property));
+            });
         }
     },
-
-    // update: (req, res) => {
-    //     const {text} = req.body;
-    //     const updateID = req.query.id;
-    //     const messageIndex = messages.findIndex(message => message.id == updateID);
-    //     let message = messages[messageIndex];
-    //
-    //     messages[messageIndex] = {
-    //         id: message.id,
-    //         text: text || message.text,
-    //         time: message.time
-    //     };
-    //
-    //     res.status(200).send(messages);
-    // },
-
     delete: (req, res) => {
+        let dbInstance = req.app.get('db');
         const {user} = req.session;
         const deleteID = req.params.id;
-        propertiesIndex = user.properties.findIndex(property => property.id == deleteID);
-        user.properties.splice(propertiesIndex, 1);
-        propertiesIndex = properties.findIndex(property => property.id == deleteID);
-        properties.splice(propertiesIndex, 1);
-        // res.status(200).send(user.properties);
-        res.status(200).send(properties);
+        const userid = req.sessionID;
+
+        dbInstance.delete_property([deleteID, userid]).then((props) => {
+            dbInstance.read_properties([userid]).then(props => {
+                res.status(200).send(props.map(property => property));
+            });
+        }).catch(err => res.status(500).send(err));
     }
-    //
-    // history: (req, res) => {
-    //     const {user} = req.session;
-    //     res.status(200).send(user.messages);
-    // }
 };
