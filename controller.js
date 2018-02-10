@@ -18,20 +18,14 @@ let id = 0;
 module.exports = {
     create: (req, res) => {
         const {name, description, address, city, state, zip, image, loanamt, monthly, rent} = req.body;
-
         const {user} = req.session;
-
-        console.log(user);
-
+        //console.log(user);
         properties.push({id, name, description, address, city, state, zip, image, loanamt, monthly, rent});
-
         user.properties.push({id, name, description, address, city, state, zip, image, loanamt, monthly, rent});
-
         id++;
-
-        console.log(req.session);
-        res.status(200).send(properties);
-        // res.status(200).send(user.properties.map(property=>property));
+        //console.log(req.session);
+        //res.status(200).send(properties);
+        res.status(200).send(user.properties.map(property => property));
     },
 
     read: (req, res) => {
@@ -42,8 +36,8 @@ module.exports = {
             res.status(200).send(properties);
         }
         else {
-            // res.status(200).send(user.properties.filter(property => property.rent > req.query.rent))
-            res.status(200).send(properties.filter(property => property.rent > req.query.rent))
+            res.status(200).send(user.properties.filter(property => property.rent > req.query.rent))
+            // res.status(200).send(properties.filter(property => property.rent > req.query.rent))
         }
     },
 
@@ -51,12 +45,18 @@ module.exports = {
     delete: (req, res) => {
         const {user} = req.session;
         const deleteID = req.params.id;
+        // console.log(deleteID);
         propertiesIndex = user.properties.findIndex(property => property.id == deleteID);
-        user.properties.splice(propertiesIndex, 1);
+        // console.log(propertiesIndex)
+        if (propertiesIndex >= 0) {
+            user.properties.splice(propertiesIndex, 1);
+        }
         propertiesIndex = properties.findIndex(property => property.id == deleteID);
-        properties.splice(propertiesIndex, 1);
-        // res.status(200).send(user.properties);
-        res.status(200).send(properties);
+        if (propertiesIndex >= 0) {
+            properties.splice(propertiesIndex, 1);
+        }
+        res.status(200).send(user.properties);
+        // res.status(200).send(properties);
     }
     //
     // history: (req, res) => {

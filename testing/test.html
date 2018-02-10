@@ -28,7 +28,8 @@
             }),
             headers: new Headers({
                 'Content-Type': 'application/json'
-            })
+            }),
+            credentials: 'include'
         }).then(res => res.json())
             .catch(error => console.error('Error:', error))
             .then(response => {
@@ -38,7 +39,7 @@
             );
     }
     function get() {
-        fetch('/api/properties').then(function (response) {
+        fetch('/api/properties', {credentials: 'include'}).then(function (response) {
             var data = response.json();
             return data
         }).then(function (data) {
@@ -47,7 +48,7 @@
         })
     }
     function get500() {
-        fetch('/api/properties/?rent=500').then(function (response) {
+        fetch('/api/properties/?rent=500', {credentials: 'include'}).then(function (response) {
             var data = response.json();
             return data
         }).then(function (data) {
@@ -56,8 +57,8 @@
         })
     }
     function del() {
-        fetch('/api/properties/?rent=500' + '/' + "1", {
-            method: 'delete'
+        fetch('/api/properties/1', {
+            method: 'delete', credentials: 'include'
         }).then(response => response.json()).then(data => {
             console.log(data)
             document.getElementById("results").innerHTML = JSON.stringify(data);

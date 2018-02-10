@@ -12,7 +12,7 @@ app.use( bodyParser.json() );
 app.use( express.static( `${__dirname}../build` ) );
 app.use( session({
     secret: 'keyboard cat',
-    resave: false,
+    resave: true,
     saveUninitialized: true,
     cookie: { secure: false }
 }));
@@ -37,7 +37,7 @@ app.get("/", function(req, res){
 const baseUrl = "/api/properties";
 app.post( baseUrl, controller.create );
 app.get( baseUrl, controller.read );
-app.delete( `${baseUrl}`, controller.delete );
+app.delete( `${baseUrl}/:id`, controller.delete );
 
 const port = process.env.PORT || 3000;
 app.listen( port, () => { console.log(`Server listening on port ${port}.`); } );

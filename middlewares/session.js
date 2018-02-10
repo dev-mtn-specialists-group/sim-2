@@ -4,15 +4,17 @@
 let id = 0;
 
 module.exports = function( req, res, next ) {
-    const { session, method } = req;
-    console.log(session.user);
+    //const { session, method } = req;
+    var session = req.session;
+    var id = req.sessionID;
+    // console.log(id)
+    // console.log(session.user);
     if ( !session.user ) {
         session.user = {
             properties:[],
             id: id
         };
-        id++
     }
-    console.log(session.user)
+    // console.log(session.user)
     next();
-}
+};
