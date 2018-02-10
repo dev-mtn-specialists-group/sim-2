@@ -2,10 +2,9 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const session = require('express-session');
 const controller = require( `${__dirname}/controller` );
-require('dotenv').config()
+//require('dotenv').config()
 
 const createInitialSession = require( `${__dirname}/middlewares/session.js` );
-//const filter = require( `${__dirname}/middlewares/filter.js`);
 
 const app = express();
 
@@ -13,9 +12,9 @@ app.use( bodyParser.json() );
 app.use( express.static( `${__dirname}../build` ) );
 app.use( session({
     secret: 'keyboard cat',
-    resave: true,
+    resave: false,
     saveUninitialized: true,
-    cookie: { secure: true }
+    cookie: { secure: false }
 }));
 
 app.use( ( req, res, next ) => createInitialSession( req, res, next ) );
