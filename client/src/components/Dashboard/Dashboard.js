@@ -12,7 +12,7 @@ export default class Dashboard extends Component {
       <div id="root">
         <Navbar />
         <div class="Dashboard_container">
-        <Link to="/wizard1"><button class="Dashboard_button_new lightest_green_bgc open-sans-bold">Add new property</button></Link>
+        <Link to="/wizard/1"><button class="Dashboard_button_new lightest_green_bgc open-sans-bold">Add new property</button></Link>
         <Filter />
         <div class="Dashboard_homeSpan_container"><span class="open-sans-bold"> Home Listings </span></div>
         <div>
