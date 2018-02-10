@@ -36,7 +36,7 @@ module.exports = {
     },
     read: (req, res) => {
         let dbInstance = req.app.get('db');
-        const {user} = req.session;
+        //const {user} = req.session;
         const userid = req.sessionID;
         const rent = req.query.rent;
         if (!req.query.rent) {
@@ -52,7 +52,7 @@ module.exports = {
     },
     delete: (req, res) => {
         let dbInstance = req.app.get('db');
-        const {user} = req.session;
+        //const {user} = req.session;
         const deleteID = req.params.id;
         const userid = req.sessionID;
 
