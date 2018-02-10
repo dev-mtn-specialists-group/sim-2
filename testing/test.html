@@ -16,15 +16,16 @@
         fetch("/api/properties", {
             method: 'POST', // or 'PUT'
             body: JSON.stringify({
-                "description": "My House",
-                "address": "123 Fake Street",
-                "city": "Ogden",
-                "state": "Utah",
-                "zip": "84405",
+                "name": Math.random().toString(36).substring(2,5),
+                "description": Math.random().toString(36).substring(2,5),
+                "address": Math.random().toString(36).substring(2,5),
+                "city": Math.random().toString(36).substring(2,5),
+                "state": Math.random().toString(36).substring(2,5),
+                "zip": Math.random().toString(36).substring(2,5),
                 "image": "http://example.com/test",
-                "loanamt": 100000,
-                "monthly": 1000,
-                "rent": 1000
+                "loanamt": Math.random()*1000000,
+                "monthly": Math.random()*1000,
+                "rent": Math.random()*1000
             }),
             headers: new Headers({
                 'Content-Type': 'application/json'
@@ -57,7 +58,7 @@
         })
     }
     function del() {
-        fetch('/api/properties/1', {
+        fetch('/api/properties/13', {
             method: 'delete', credentials: 'include'
         }).then(response => response.json()).then(data => {
             console.log(data)

@@ -10,57 +10,56 @@
 //     monthly INTEGER,
 //     rent INTEGER
 
-
-let properties = [];
-let id = 0;
-
-
 module.exports = {
     create: (req, res) => {
-        const {name, description, address, city, state, zip, image, loanamt, monthly, rent} = req.body;
-        const {user} = req.session;
-        //console.log(user);
-        properties.push({id, name, description, address, city, state, zip, image, loanamt, monthly, rent});
-        user.properties.push({id, name, description, address, city, state, zip, image, loanamt, monthly, rent});
-        id++;
-        //console.log(req.session);
-        //res.status(200).send(properties);
-        res.status(200).send(user.properties.map(property => property));
-    },
+        let dbInstance = req.app.get('db');
+        let {name, description, address, city, state, zip, image, loanamt, monthly, rent} = req.body;
+        // catch empty vals
+        name = name || "";
+        description = description || "";
+        address = address || "";
+        city = city || "";
+        state = state || "";
+        zip = zip || "";
+        image = image || "";
+        loanamt = loanamt || 0;
+        monthly = monthly || 0;
+        rent = rent || 0;
 
-    read: (req, res) => {
         const {user} = req.session;
-        //console.log(properties)
+        const userid = req.sessionID;
+        dbInstance.create_property([name, description, address, city, state, zip, image, loanamt, monthly, rent, userid]).then(() => {
+            dbInstance.read_properties([userid]).then(props => {
+                res.status(200).send(props.map(property => property));
+            });
+        }).catch(err => res.status(500).send(err))
+    },
+    read: (req, res) => {
+        let dbInstance = req.app.get('db');
+        const {user} = req.session;
+        const userid = req.sessionID;
+        const rent = req.query.rent;
         if (!req.query.rent) {
-            // res.status(200).send(user.properties);
-            res.status(200).send(properties);
+            dbInstance.read_properties([userid]).then(props => {
+                res.status(200).send(props.map(property => property));
+            });
         }
         else {
-            res.status(200).send(user.properties.filter(property => property.rent > req.query.rent))
-            // res.status(200).send(properties.filter(property => property.rent > req.query.rent))
+            dbInstance.read_properties([userid, rent]).then(props => {
+                res.status(200).send(props.map(property => property));
+            });
         }
     },
-
-
     delete: (req, res) => {
+        let dbInstance = req.app.get('db');
         const {user} = req.session;
         const deleteID = req.params.id;
-        // console.log(deleteID);
-        propertiesIndex = user.properties.findIndex(property => property.id == deleteID);
-        // console.log(propertiesIndex)
-        if (propertiesIndex >= 0) {
-            user.properties.splice(propertiesIndex, 1);
-        }
-        propertiesIndex = properties.findIndex(property => property.id == deleteID);
-        if (propertiesIndex >= 0) {
-            properties.splice(propertiesIndex, 1);
-        }
-        res.status(200).send(user.properties);
-        // res.status(200).send(properties);
+        const userid = req.sessionID;
+
+        dbInstance.delete_property([deleteID, userid]).then((props) => {
+            dbInstance.read_properties([userid]).then(props => {
+                res.status(200).send(props.map(property => property));
+            });
+        }).catch(err => res.status(500).send(err));
     }
-    //
-    // history: (req, res) => {
-    //     const {user} = req.session;
-    //     res.status(200).send(user.messages);
-    // }
 };

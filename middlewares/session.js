@@ -15,6 +15,7 @@ module.exports = function( req, res, next ) {
             id: id
         };
     }
-    // console.log(session.user)
+    console.log(req.sessionID)
+
     next();
 };
