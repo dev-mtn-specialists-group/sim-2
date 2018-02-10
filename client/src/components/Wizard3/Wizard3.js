@@ -44,7 +44,7 @@ class Wizard3 extends Component {
                             </div>
                         </div>
                         <p>Image URL</p>
-                        <input type="text" onChange={(e) => updateImageURL(e.target.value)}/>
+                        <input type="text" value={this.props.imageURL} onChange={(e) => updateImageURL(e.target.value)}/>
                     </div>
 
                     <div className="navigation">
