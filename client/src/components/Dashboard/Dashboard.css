@@ -1,0 +1,44 @@
+.Dashboard_container {
+    width: 50%;
+    min-height: 900px;
+    height: auto;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-direction: column;
+        flex-direction: column;
+    -ms-flex-align: center;
+        align-items: center;
+    -webkit-box-sizing: border-box;
+            box-sizing: border-box;
+    margin-top: 75px;
+    background-image: -webkit-gradient(linear, left top, left bottom, from(#e2f3ea), to(#ffffff));
+    background-image: -webkit-linear-gradient(top, #e2f3ea, #ffffff);
+    background-image: -o-linear-gradient(top, #e2f3ea, #ffffff);
+    background-image: linear-gradient(to bottom, #e2f3ea, #ffffff);
+    padding: 20px;
+    min-width: 759px;
+  }
+  
+  .Dashboard_button_new {
+    border: none;
+    font-size: 20px;
+    padding: 10px;
+    cursor: pointer;
+    margin-bottom: 30px;
+  }
+  
+  .Dashboard_homeSpan_container {
+    width: 100%;
+    height: auto;
+    -webkit-box-sizing: border-box;
+            box-sizing: border-box;
+    padding: 20px;
+    font-size: 20px;
+  }
+  
+  .Dashboard_properties_container {
+    width: 100%;
+    height: 74%;
+    -ms-flex-direction: column;
+        flex-direction: column;
+  }
