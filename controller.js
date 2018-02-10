@@ -18,12 +18,15 @@ let id = 0;
 module.exports = {
     create: (req, res) => {
         const {name, description, address, city, state, zip, image, loanamt, monthly, rent} = req.body;
-        //const { properties, time } = req.body;
+
         const {user} = req.session;
+
+        console.log(user);
+
         properties.push({id, name, description, address, city, state, zip, image, loanamt, monthly, rent});
-        //messages.push({id, text, time});
+
         user.properties.push({id, name, description, address, city, state, zip, image, loanamt, monthly, rent});
-        //user.messages.push({id, text, time});
+
         id++;
 
         console.log(req.session);
@@ -44,20 +47,6 @@ module.exports = {
         }
     },
 
-    // update: (req, res) => {
-    //     const {text} = req.body;
-    //     const updateID = req.query.id;
-    //     const messageIndex = messages.findIndex(message => message.id == updateID);
-    //     let message = messages[messageIndex];
-    //
-    //     messages[messageIndex] = {
-    //         id: message.id,
-    //         text: text || message.text,
-    //         time: message.time
-    //     };
-    //
-    //     res.status(200).send(messages);
-    // },
 
     delete: (req, res) => {
         const {user} = req.session;
