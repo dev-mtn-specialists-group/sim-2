@@ -40,13 +40,17 @@ class Wizard2 extends Component {
                         <p>Address</p>
                         <input id="addressInput" type="text" onChange={(e) => updateAddress(e.target.value)}/>
                         <div className="cityState">
-                            <p>City</p>
-                            <input class="cityStateInput" type="text" onChange={(e) => updateCity(e.target.value)}/>
-                            <br /><p>State</p>
-                            <input class="cityStateInput" type="text" onChange={(e) => updateState(e.target.value)}/>
+                            <div id="city">
+                                <p>City</p>
+                                <input class="cityStateInput" type="text" onChange={(e) => updateCity(e.target.value)}/>
+                            </div>
+                            <div id="state"><p>State</p>
+                                <input class="cityStateInput" type="text"
+                                       onChange={(e) => updateState(e.target.value)}/>
+                            </div>
                         </div>
                         <p>Zip</p>
-                        <input type="text" onChange={(e) => updateZip(e.target.value)}/>
+                        <input id="zipInput" type="text" onChange={(e) => updateZip(e.target.value)}/>
                     </div>
 
                     <div className="navigation">
