@@ -68,7 +68,7 @@ class Wizard5 extends Component {
                             <button className="next-step">Previous Step</button>
                         </Link>
                         <Link to="/dashboard">
-                            <button className="next-step" onClick={() => this.addProperty()}>Complete</button>
+                            <button className="next-step" onClick={() => this.addProperty()}>Completed</button>
                         </Link>
                     </div>
 
