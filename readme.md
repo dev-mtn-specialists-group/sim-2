@@ -1,14 +1,14 @@
-### Base URL
+## Base URL
 
 /api/properties
 
-### Methods
+## Methods
 
-##### GET
-###### /api/properties
+### GET
+#### /api/properties
 * Returns All Properties From the DB Under The Current User's SessionID
-##### POST
-###### /api/properties
+### POST
+#### /api/properties
 * Creates a New Property, Must supply fields in body
   * name (string)
   * description (string)
@@ -20,6 +20,6 @@
   * loanamt (number)
   * monthly (number)
   * rent (number)
-##### DELETE
-###### /api/properties/:id
+### DELETE
+#### /api/properties/:id
 * Deletes a property, Must supply id
